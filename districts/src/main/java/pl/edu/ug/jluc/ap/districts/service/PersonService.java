@@ -92,16 +92,16 @@ public class PersonService {
 
         System.out.println("###########################################################JL");
         Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
-        List<Person> o = personRepository.getAllPersons();
+        List<Person> p = personRepository.getAllPersons();
 
         Flux<Person> events = Flux.fromStream(Stream.generate(() -> {
-            Collections.shuffle(o);
-            return o.get(0);
+            Collections.shuffle(p);
+            return p.get(0);
         }));
 
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         Flux<Person> ret = Flux.zip(events, interval, (e, i) -> e);
-        System.out.println(o.get(0));
+        System.out.println(p.get(0));
         return ret;
 
     }
